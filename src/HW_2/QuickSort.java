@@ -1,6 +1,7 @@
 package HW_2;
 
 import java.awt.geom.Point2D;
+import java.util.Objects;
 
 public class QuickSort {
 
@@ -24,6 +25,26 @@ public class QuickSort {
      */
     public void sort(Point2D.Double[] arr, int startIndex, int lastIndex, String orderBy) {
         //Write codes here
+
+        if (startIndex < lastIndex)
+        {
+
+            // pi is partitioning index, arr[p]
+            // is now at right place
+            int pi;
+
+            if(Objects.equals(orderBy, "compareX")){
+                pi= partitionX(arr,startIndex,lastIndex);
+            }
+            else{
+                pi= partitionY(arr,startIndex,lastIndex);
+            }
+
+            // Separately sort elements before
+            // partition and after partition
+            sort(arr, startIndex, pi - 1,orderBy);
+            sort(arr, pi + 1, lastIndex,orderBy);
+        }
     }
 
     /**
@@ -106,11 +127,26 @@ public class QuickSort {
 
         Point2D.Double pivot= getMedianX(arr,startIndex,lastIndex);
 
+        for(int i =0; i< arr.length;i++){
+            if(arr[i].getX()==pivot.getX()) swap(arr,i,lastIndex);
+        }
 
+        // Index of smaller element and indicates the right position of pivot found so far
+        int i = (startIndex - 1);
 
+        for(int j = startIndex; j <= lastIndex - 1; j++)
+        {
+            if (arr[j].getX() < pivot.getX())
+            {
+                // Increment index of smaller element
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, lastIndex);
 
+        return (i + 1);
 
-        return -1; //This line will deleted
     }
 
     /**
@@ -127,7 +163,26 @@ public class QuickSort {
      */
     private int partitionY(Point2D.Double[] arr, int startIndex, int lastIndex) {
         //Write codes here
-        return -1; //This line will deleted
+        Point2D.Double pivot= getMedianY(arr,startIndex,lastIndex);
+
+        for(int i =0; i< arr.length;i++){
+            if(arr[i].getY()==pivot.getY()) swap(arr,i,lastIndex);
+        }
+
+        // Index of smaller element and indicates the right position of pivot found so far
+        int i = (startIndex - 1);
+
+        for(int j = startIndex; j <= lastIndex - 1; j++)
+        {
+            if (arr[j].getY() < pivot.getY())
+            {
+                // Increment index of smaller element
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, lastIndex);
+        return (i + 1);
     }
 
 }
