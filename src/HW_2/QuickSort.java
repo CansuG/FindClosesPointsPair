@@ -35,6 +35,11 @@ public class QuickSort {
      */
     private void swap(Point2D.Double[] arr, int i, int j) {
         //Write codes here
+
+        Point2D.Double temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+
     }
 
     /**
@@ -47,7 +52,18 @@ public class QuickSort {
      */
     private Point2D.Double getMedianX(Point2D.Double[] arr, int left, int right) {
         //Write codes here
-        return new Point2D.Double(0,0); //This line will deleted
+
+        int center = (right + left) / 2;
+        Point2D.Double pivot;
+
+        if (arr[left].x < arr[center].x && arr[left].x > arr[right].x || arr[left].x > arr[center].x && arr[left].x < arr[right].x)
+            pivot = arr[left];
+        else if (arr[right].x < arr[center].x && arr[right].x > arr[left].x || arr[right].x > arr[center].x && arr[right].x < arr[left].x)
+            pivot=arr[right];
+        else
+            pivot=arr[center];
+
+        return pivot;
     }
 
     /**
@@ -60,7 +76,17 @@ public class QuickSort {
      */
     private Point2D.Double getMedianY(Point2D.Double[] arr, int left, int right) {
         //Write codes here
-        return new Point2D.Double(1,1); //This line will deleted
+        int center = (right + left) / 2;
+        Point2D.Double pivot;
+
+        if (arr[left].y < arr[center].y && arr[left].y > arr[right].y || arr[left].y > arr[center].y && arr[left].y < arr[right].y)
+            pivot = arr[left];
+        else if (arr[right].y < arr[center].y && arr[right].y > arr[left].y || arr[right].y > arr[center].y && arr[right].y < arr[left].y)
+            pivot=arr[right];
+        else
+            pivot=arr[center];
+
+        return pivot;
     }
 
     /**
@@ -77,6 +103,13 @@ public class QuickSort {
      */
     private int partitionX(Point2D.Double[] arr, int startIndex, int lastIndex) {
         //Write codes here
+
+        Point2D.Double pivot= getMedianX(arr,startIndex,lastIndex);
+
+
+
+
+
         return -1; //This line will deleted
     }
 
