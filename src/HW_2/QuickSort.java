@@ -26,11 +26,7 @@ public class QuickSort {
     public void sort(Point2D.Double[] arr, int startIndex, int lastIndex, String orderBy) {
         //Write codes here
 
-        if (startIndex < lastIndex)
-        {
-
-            // pi is partitioning index, arr[p]
-            // is now at right place
+        if (startIndex < lastIndex) {
             int pi;
 
             if(Objects.equals(orderBy, "compareX")){
@@ -40,8 +36,6 @@ public class QuickSort {
                 pi= partitionY(arr,startIndex,lastIndex);
             }
 
-            // Separately sort elements before
-            // partition and after partition
             sort(arr, startIndex, pi - 1,orderBy);
             sort(arr, pi + 1, lastIndex,orderBy);
         }

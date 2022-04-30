@@ -2,6 +2,7 @@ package HW_2;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 
 public class FindClosest {
 
@@ -39,7 +40,38 @@ public class FindClosest {
      */
     private PointPair calculateClosestPointPair(Point2D.Double[] p, int startIndex, int lastIndex) {
         //Write codes here
-        return new PointPair(p[startIndex], p[lastIndex]); //This line will deleted
+        int n = lastIndex - startIndex;
+        int mid = n / 2;
+
+        int size = p.length;
+
+        if (size == 3) {
+            return getClosestPointPair(p[0], p[1], p[2]);
+        }
+        if (size < 3) {
+            //compare only 2 points.
+            return getClosestPointPair(p[0], new Point2D.Double(), p[1]);
+        }
+
+        Point2D.Double[] leftArray = Arrays.copyOfRange(p, 0, p.length / 2);
+        Point2D.Double[] rightArray = Arrays.copyOfRange(p, p.length / 2, p.length);
+
+
+        PointPair pairLeft = calculateClosestPointPair(leftArray, 0, leftArray.length - 1);
+        PointPair pairRight = calculateClosestPointPair(rightArray, 0, rightArray.length - 1);
+
+        PointPair pointPair = getClosestPointPair(pairLeft, pairRight);
+
+        Point2D.Double[] strip = new Point2D.Double[n];
+        int k = 0;
+        for (int i = 0; i < n; i++) {
+
+            if (Math.abs(p[i].getX() - p[mid].getX()) < pointPair.getDistance()) {
+                strip[k] = p[i];
+                k++;
+            }
+        }
+        return getClosestPointPair(pointPair, stripClosest(strip, k, pointPair));
     }
 
     /**
